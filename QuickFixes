@@ -1,0 +1,29 @@
+from compress_optimizer_notebook import example_setups_from_paper, useful_setups_from_list, find_optimal_mix_single_dataset
+setups = example_setups_from_paper()
+hull = useful_setups_from_list(setups)
+budget = 22000.0
+plan = find_optimal_mix_single_dataset(hull, budget)
+print(plan)
+# To save plan to JSON or CSV:
+import json
+with open('/mnt/data/plan.json','w') as f:
+    json.dump(plan, f, default=str)
+print("Saved plan to /mnt/data/plan.json")
+
+
+# use the module plotting function (it shows the plot); to save, call plt.savefig before plt.show
+import matplotlib.pyplot as plt
+# recreate the hull plot:
+from compress_optimizer_notebook import plot_hull
+plot_hull(hull, time_budget_ms=22000)
+plt.savefig('/mnt/data/hull_plot.png')
+print("Saved plot to /mnt/data/hull_plot.png")
+
+
+pip install ipywidgets
+jupyter nbextension enable --py widgetsnbextension   # (for classic notebook)
+
+
+!pip install ipywidgets
+from google.colab import output
+output.enable_custom_widget_manager()
